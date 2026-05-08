@@ -661,8 +661,8 @@ export default function Page() {
                   <th
                     className={`sticky left-0 z-20 bg-zinc-100 border border-zinc-200 p-2 text-left text-xs font-bold uppercase tracking-wide ${
                       isTrainTab
-                        ? "min-w-[85px]"
-                        : "min-w-[125px]"
+                        ? "min-w-[72px]"
+                        : "min-w-[95px]"
                     }`}
                   >
                     {isTrainTab
@@ -670,20 +670,20 @@ export default function Page() {
                       : "ROLE"}
                   </th>
 
-                  <th className="border border-zinc-200 p-2 bg-zinc-100 min-w-[120px] text-xs font-bold uppercase tracking-wide">
+                  <th className="border border-zinc-200 p-2 bg-zinc-100 min-w-[95px] text-xs font-bold uppercase tracking-wide">
                     {isTrainTab
                       ? "PILOT"
                       : "PLAYER 1"}
                   </th>
 
-                  <th className="border border-zinc-200 p-2 bg-zinc-100 min-w-[120px] text-xs font-bold uppercase tracking-wide">
+                  <th className="border border-zinc-200 p-2 bg-zinc-100 min-w-[95px] text-xs font-bold uppercase tracking-wide">
                     {isTrainTab
                       ? "VIP"
                       : "PLAYER 2"}
                   </th>
 
                   {!isTrainTab && (
-                    <th className="border border-zinc-200 p-2 bg-zinc-100 min-w-[120px] text-xs font-bold uppercase tracking-wide">
+                    <th className="border border-zinc-200 p-2 bg-zinc-100 min-w-[95px] text-xs font-bold uppercase tracking-wide">
                       PLAYER 3
                     </th>
                   )}
@@ -696,9 +696,9 @@ export default function Page() {
                     <tr key={role}>
 
                       <td
-                        className={`sticky left-0 z-10 bg-zinc-50 border border-zinc-200 px-2 py-2 whitespace-nowrap text-xs font-bold ${
+                        className={`sticky left-0 z-10 bg-[#f0f1f3] border border-zinc-200 px-2 py-2 whitespace-nowrap text-xs font-bold ${
                           isTrainTab
-                            ? "w-[85px]"
+                            ? "w-[72px]"
                             : ""
                         }`}
                       >
