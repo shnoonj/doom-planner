@@ -12,18 +12,18 @@ import {
 import { toPng } from "html-to-image"
 
 const DEFAULT_ROLES = [
-  "🏥 Hospital 1",
-  "🏥 Hospital 2",
-  "🏥 Hospital 3",
-  "🏥 Hospital 4",
-  "⛽ Refinery 1",
-  "⛽ Refinery 2",
-  "🧪 Science Hub",
-  "📡 Info Center",
-  "🔫 Arsenal",
-  "⚔️ Mercenary",
-  "🚀 Silo",
-  "🎯 Hunters",
+  "🏥 HOSPITAL 1",
+  "🏥 HOSPITAL 2",
+  "🏥 HOSPITAL 3",
+  "🏥 HOSPITAL 4",
+  "⛽ REFINERY 1",
+  "⛽ REFINERY 2",
+  "🧪 SCIENCE HUB",
+  "📡 INFO CENTER",
+  "🔫 ARSENAL",
+  "⚔️ MERCENARY",
+  "🚀 SILO",
+  "🎯 HUNTERS",
 ]
 
 const DAY_NAMES = [
@@ -696,7 +696,7 @@ export default function Page() {
                     <tr key={role}>
 
                       <td
-                        className={`sticky left-0 z-10 bg-[#f0f1f3] border border-zinc-200 px-2 py-2 whitespace-nowrap text-xs font-bold ${
+                        className={`sticky left-0 z-10 bg-[#f0f1f3] border border-zinc-200 px-2 py-1 whitespace-nowrap text-xs font-bold ${
                           isTrainTab
                             ? "w-[72px]"
                             : ""
@@ -728,7 +728,7 @@ export default function Page() {
                                 key
                               )
                             }
-                            className={`border border-zinc-200 p-1 transition-all duration-150 ${
+                            className={`border border-zinc-200 p-0.5 transition-all duration-150 ${
                               activeLegend
                                 ? "cursor-pointer"
                                 : "hover:bg-white/40"
