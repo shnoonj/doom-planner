@@ -74,25 +74,25 @@ const LEGENDS = {
 
 function createDefaultTeam() {
   return {
-    playerStates: {},
+    playerStates: {} as Record<string, string>,
     players: Array.from(
       { length: DEFAULT_ROLES.length },
       () => ["", "", ""]
     ),
     subs: Array(10).fill(""),
-    cellColors: {},
+    cellColors: {} as Record<string, string>,
   }
 }
 
 function createTrainTeam() {
   return {
-    playerStates: {},
+    playerStates: {} as Record<string, string>,
     players: Array.from(
       { length: TRAIN_ROLES.length },
       () => ["", ""]
     ),
     subs: [],
-    cellColors: {},
+    cellColors: {} as Record<string, string>,
   }
 }
 
