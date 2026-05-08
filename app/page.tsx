@@ -404,7 +404,7 @@ export default function Page() {
     <div className="min-h-screen bg-[#f4f5f7] text-zinc-800 p-3 md:p-5">
       <div className="max-w-7xl mx-auto space-y-5">
 
-        <div className="flex items-start justify-between rounded-3xl border border-zinc-200 bg-white/70 backdrop-blur-sm px-4 py-4 shadow-sm">
+        <div className="flex items-start justify-between px-4 py-4">
 
           <div>
             <h1 className="text-[30px] font-black tracking-tight text-zinc-900">
@@ -440,7 +440,6 @@ export default function Page() {
                     duration-150
                     border
                     whitespace-nowrap
-                    shadow-sm
                     ${activeTab === key
                       ? "bg-zinc-900 text-white border-zinc-900 scale-[1.02]"
                       : "bg-white text-zinc-700 border-zinc-200 hover:border-zinc-300 hover:bg-zinc-50"
@@ -462,7 +461,7 @@ export default function Page() {
           </div>
         </div>
 
-        <div className="space-y-4 rounded-3xl border border-zinc-200 bg-white/70 backdrop-blur-sm p-4 shadow-sm">
+        <div className="space-y-4 p-4">
 
           <div className="flex flex-wrap gap-2">
 
@@ -489,10 +488,9 @@ export default function Page() {
                       font-medium
                       transition-all
                       duration-150
-                      shadow-sm
                       border
                       ${state === "green"
-                        ? "bg-[#5CFC38] border-[#4BE12A] text-black shadow-[0_0_12px_rgba(92,252,56,0.18)]"
+                        ? "bg-[#5CFC38] border-[#4BE12A] text-black shadow-[0_0_12px_rgba(255,230,0,0.18)]"
                         : state === "pink"
                         ? "bg-[#FFE600] border-[#E6CF00] text-black shadow-[0_0_12px_rgba(255,230,0,0.18)]"
                         : "bg-white border-zinc-200 hover:border-zinc-300 hover:bg-zinc-50"
@@ -547,7 +545,7 @@ export default function Page() {
 
             <button
               onClick={addPlayer}
-              className="flex items-center justify-center gap-1 h-9 px-3 rounded-xl text-[12px] font-semibold transition-all duration-150 shadow-sm bg-zinc-900 text-white hover:scale-[1.02]"
+              className="flex items-center justify-center gap-1 h-9 px-3 rounded-xl text-[12px] font-semibold transition-all duration-150 bg-zinc-900 text-white hover:scale-[1.02]"
             >
               <Plus size={12} />
               Add
@@ -574,7 +572,7 @@ export default function Page() {
                     },
                   }))
                 }}
-                className="flex items-center justify-center gap-1 h-9 px-3 rounded-xl text-[12px] font-semibold transition-all duration-150 shadow-sm bg-[#5CFC38] text-black hover:scale-[1.02]"
+                className="flex items-center justify-center gap-1 h-9 px-3 rounded-xl text-[12px] font-semibold transition-all duration-150 bg-[#5CFC38] text-black hover:scale-[1.02]"
               >
                 ALL
               </button>
@@ -584,7 +582,7 @@ export default function Page() {
               onClick={() =>
                 setEditing(!editing)
               }
-              className="flex items-center justify-center gap-1 h-9 px-3 rounded-xl text-[12px] font-semibold transition-all duration-150 shadow-sm bg-blue-500 text-white hover:scale-[1.02]"
+              className="flex items-center justify-center gap-1 h-9 px-3 rounded-xl text-[12px] font-semibold transition-all duration-150 bg-blue-500 text-white hover:scale-[1.02]"
             >
               <Pencil size={12} />
               Edit
@@ -592,7 +590,7 @@ export default function Page() {
 
             <button
               onClick={resetTeam}
-              className="flex items-center justify-center gap-1 h-9 px-3 rounded-xl text-[12px] font-semibold transition-all duration-150 shadow-sm bg-red-500 text-white hover:scale-[1.02]"
+              className="flex items-center justify-center gap-1 h-9 px-3 rounded-xl text-[12px] font-semibold transition-all duration-150 bg-red-500 text-white hover:scale-[1.02]"
             >
               <RotateCcw size={12} />
               Reset
@@ -600,7 +598,7 @@ export default function Page() {
 
             <button
               onClick={exportImage}
-              className="flex items-center justify-center gap-1 h-9 px-3 rounded-xl text-[12px] font-semibold transition-all duration-150 shadow-sm border border-zinc-300 bg-white text-zinc-900 hover:bg-zinc-50 hover:scale-[1.02]"
+              className="flex items-center justify-center gap-1 h-9 px-3 rounded-xl text-[12px] font-semibold transition-all duration-150 border border-zinc-300 bg-white text-zinc-900 hover:bg-zinc-50 hover:scale-[1.02]"
             >
               <Download size={12} />
               PNG
@@ -612,13 +610,7 @@ export default function Page() {
           ref={exportRef}
           className={`
             space-y-4
-            rounded-3xl
-            border
-            border-zinc-200
-            bg-white/70
-            backdrop-blur-sm
             p-4
-            shadow-sm
             ${isExporting ? "w-[1200px]" : "overflow-hidden"}
           `}
         >
@@ -647,7 +639,6 @@ export default function Page() {
                     border
                     transition-all
                     duration-150
-                    shadow-sm
                     ${activeLegend === label
                       ? "border-zinc-900 scale-[1.03] shadow-md"
                       : "border-transparent hover:scale-[1.02]"
@@ -872,7 +863,6 @@ export default function Page() {
                           p-1
                           transition-all
                           duration-150
-                          shadow-sm
                           ${activeLegend ? "cursor-pointer" : ""}
                           ${color
                             ? LEGENDS[
