@@ -1,4 +1,3 @@
-
 "use client"
 
 import { supabase } from "../lib/supabase"
@@ -68,11 +67,11 @@ const TRAIN_ROLES =
   getCurrentWeekDays()
 
 const LEGENDS = {
-  "IN SILO": "bg-[#FFE600]",
-  "OUT SILO": "bg-[#FF9F1C]",
-  SUPPORT: "bg-[#4CC9F0]",
-  "1ST OBJ": "bg-[#9D4EDD]",
-  "2ND OBJ": "bg-[#FF4D4D]",
+  "IN SILO": "bg-[#FACC15]",
+  "OUT SILO": "bg-[#FB923C]",
+  SUPPORT: "bg-[#38BDF8]",
+  "1ST OBJ": "bg-[#A855F7]",
+  "2ND OBJ": "bg-[#EF4444]",
 }
 
 function createDefaultTeam() {
@@ -161,49 +160,47 @@ export default function Page() {
     return `${day}/${month}`
   }, [])
 
-  
-const hasLoaded = useRef(false)
+  const hasLoaded = useRef(false)
 
-useEffect(() => {
-  async function loadData() {
-    const { data } = await supabase
-      .from("doom_state")
-      .select("data")
-      .eq("id", 1)
-      .single()
+  useEffect(() => {
+    async function loadData() {
+      const { data } = await supabase
+        .from("doom_state")
+        .select("data")
+        .eq("id", 1)
+        .single()
 
-    if (data?.data) {
-      if (data.data.players)
-        setPlayers(data.data.players)
+      if (data?.data) {
+        if (data.data.players)
+          setPlayers(data.data.players)
 
-      if (data.data.teams)
-        setTeams(data.data.teams)
+        if (data.data.teams)
+          setTeams(data.data.teams)
+      }
+
+      hasLoaded.current = true
     }
 
-    hasLoaded.current = true
-  }
+    loadData()
+  }, [])
 
-  loadData()
-}, [])
+  useEffect(() => {
+    if (!hasLoaded.current) return
 
-useEffect(() => {
-  if (!hasLoaded.current) return
+    async function saveData() {
+      await supabase
+        .from("doom_state")
+        .update({
+          data: {
+            players,
+            teams,
+          },
+        })
+        .eq("id", 1)
+    }
 
-  async function saveData() {
-    await supabase
-      .from("doom_state")
-      .update({
-        data: {
-          players,
-          teams,
-        },
-      })
-      .eq("id", 1)
-  }
-
-  saveData()
-}, [players, teams])
-  
+    saveData()
+  }, [players, teams])
 
   const sortedPlayers = useMemo(() => {
     return [...players].sort((a, b) =>
@@ -254,7 +251,6 @@ useEffect(() => {
     let next = "green"
 
     if (current === "green") {
-
       if (
         pinkCount >=
         (isTrainTab ? 100 : 10)
@@ -262,13 +258,9 @@ useEffect(() => {
         return
 
       next = "pink"
-
     } else if (current === "pink") {
-
       next = "none"
-
     } else {
-
       if (
         greenCount >=
         (isTrainTab ? 100 : 20)
@@ -394,7 +386,7 @@ useEffect(() => {
       {
         cacheBust: true,
         pixelRatio: 2,
-        backgroundColor: "#f4f4f5",
+        backgroundColor: "#f4f5f7",
       }
     )
 
@@ -409,65 +401,58 @@ useEffect(() => {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-100 text-zinc-800 p-3 md:p-5">
+    <div className="min-h-screen bg-[#f4f5f7] text-zinc-800 p-3 md:p-5">
+      <div className="max-w-7xl mx-auto space-y-5">
 
-      <div className="max-w-7xl mx-auto space-y-6">
-
-        {/* HEADER */}
-
-        <div className="flex items-start justify-between">
+        <div className="flex items-start justify-between rounded-3xl border border-zinc-200 bg-white/70 backdrop-blur-sm px-4 py-4 shadow-sm">
 
           <div>
-            <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">
+            <h1 className="text-[30px] font-black tracking-tight text-zinc-900">
               DOOM #1515
             </h1>
+
+            <p className="text-[12px] text-zinc-500 mt-1 font-medium">
+              Alliance Tactical Planner
+            </p>
           </div>
 
-          <div className="flex flex-col items-end gap-1">
+          <div className="flex flex-col items-end gap-2">
 
             <div className="flex gap-2">
 
-              <button
-                onClick={() =>
-                  setActiveTab("A")
-                }
-                className={`px-2 py-1 rounded-lg text-[12px] font-bold border transition whitespace-nowrap ${
-                  activeTab === "A"
-                    ? "bg-zinc-900 text-white border-zinc-900"
-                    : "bg-white border-zinc-300"
-                }`}
-              >
-                TEAM A
-              </button>
-
-              <button
-                onClick={() =>
-                  setActiveTab("B")
-                }
-                className={`px-2 py-1 rounded-lg text-[12px] font-bold border transition whitespace-nowrap ${
-                  activeTab === "B"
-                    ? "bg-zinc-900 text-white border-zinc-900"
-                    : "bg-white border-zinc-300"
-                }`}
-              >
-                TEAM B
-              </button>
-
-              <button
-                onClick={() =>
-                  setActiveTab("C")
-                }
-                className={`px-2 py-1 rounded-lg text-[12px] font-bold border transition whitespace-nowrap ${
-                  activeTab === "C"
-                    ? "bg-zinc-900 text-white border-zinc-900"
-                    : "bg-white border-zinc-300"
-                }`}
-              >
-                TRAINS
-              </button>
+              {[
+                ["A", "TEAM A"],
+                ["B", "TEAM B"],
+                ["C", "TRAINS"],
+              ].map(([key, label]) => (
+                <button
+                  key={key}
+                  onClick={() =>
+                    setActiveTab(key as any)
+                  }
+                  className={`
+                    h-9
+                    px-3
+                    rounded-xl
+                    text-[12px]
+                    font-bold
+                    transition-all
+                    duration-150
+                    border
+                    whitespace-nowrap
+                    shadow-sm
+                    ${activeTab === key
+                      ? "bg-zinc-900 text-white border-zinc-900 scale-[1.02]"
+                      : "bg-white text-zinc-700 border-zinc-200 hover:border-zinc-300 hover:bg-zinc-50"
+                    }
+                  `}
+                >
+                  {label}
+                </button>
+              ))}
             </div>
 
-            <div className="text-[11px] text-zinc-500 pr-1">
+            <div className="text-[11px] text-zinc-500 font-medium pr-1">
               {activeTab === "A"
                 ? "13H FRANCE"
                 : activeTab === "B"
@@ -477,11 +462,7 @@ useEffect(() => {
           </div>
         </div>
 
-        <div className="border-t border-zinc-300" />
-
-        {/* INSCRIPTION */}
-
-        <div className="space-y-4">
+        <div className="space-y-4 rounded-3xl border border-zinc-200 bg-white/70 backdrop-blur-sm p-4 shadow-sm">
 
           <div className="flex flex-wrap gap-2">
 
@@ -500,13 +481,23 @@ useEffect(() => {
                     onClick={() =>
                       cyclePlayer(player)
                     }
-                    className={`px-3 py-1 rounded-lg text-sm transition ${
-                      state === "green"
-                        ? "bg-[#5CFC38]"
+                    className={`
+                      px-3
+                      h-9
+                      rounded-xl
+                      text-[13px]
+                      font-medium
+                      transition-all
+                      duration-150
+                      shadow-sm
+                      border
+                      ${state === "green"
+                        ? "bg-[#5CFC38] border-[#4BE12A] text-black shadow-[0_0_12px_rgba(92,252,56,0.18)]"
                         : state === "pink"
-                        ? "bg-[#FFE600]"
-                        : "bg-zinc-200"
-                    }`}
+                        ? "bg-[#FFE600] border-[#E6CF00] text-black shadow-[0_0_12px_rgba(255,230,0,0.18)]"
+                        : "bg-white border-zinc-200 hover:border-zinc-300 hover:bg-zinc-50"
+                      }
+                    `}
                   >
                     {player}
                   </button>
@@ -526,10 +517,10 @@ useEffect(() => {
             })}
           </div>
 
-          <div className="text-[11px] text-zinc-500 flex gap-4">
+          <div className="text-[12px] text-zinc-500 flex gap-5 font-medium">
 
             <div>
-              <span className="text-green-600 font-medium">
+              <span className="text-green-600 font-semibold">
                 Inscrits :
               </span>{" "}
               {greenCount}/
@@ -539,7 +530,7 @@ useEffect(() => {
             </div>
 
             <div>
-              <span className="text-yellow-500 font-medium">
+              <span className="text-yellow-500 font-semibold">
                 {isTrainTab
                   ? "VIP"
                   : "Subs"}
@@ -552,13 +543,11 @@ useEffect(() => {
             </div>
           </div>
 
-          {/* ACTIONS */}
-
           <div className="flex flex-wrap gap-2">
 
             <button
               onClick={addPlayer}
-              className="flex items-center gap-1 px-2 py-1 rounded-lg bg-zinc-900 text-white text-[11px]"
+              className="flex items-center justify-center gap-1 h-9 px-3 rounded-xl text-[12px] font-semibold transition-all duration-150 shadow-sm bg-zinc-900 text-white hover:scale-[1.02]"
             >
               <Plus size={12} />
               Add
@@ -585,7 +574,7 @@ useEffect(() => {
                     },
                   }))
                 }}
-                className="flex items-center gap-1 px-2 py-1 rounded-lg bg-[#5CFC38] text-black text-[11px]"
+                className="flex items-center justify-center gap-1 h-9 px-3 rounded-xl text-[12px] font-semibold transition-all duration-150 shadow-sm bg-[#5CFC38] text-black hover:scale-[1.02]"
               >
                 ALL
               </button>
@@ -595,7 +584,7 @@ useEffect(() => {
               onClick={() =>
                 setEditing(!editing)
               }
-              className="flex items-center gap-1 px-2 py-1 rounded-lg bg-blue-500 text-white text-[11px]"
+              className="flex items-center justify-center gap-1 h-9 px-3 rounded-xl text-[12px] font-semibold transition-all duration-150 shadow-sm bg-blue-500 text-white hover:scale-[1.02]"
             >
               <Pencil size={12} />
               Edit
@@ -603,7 +592,7 @@ useEffect(() => {
 
             <button
               onClick={resetTeam}
-              className="flex items-center gap-1 px-2 py-1 rounded-lg bg-red-500 text-white text-[11px]"
+              className="flex items-center justify-center gap-1 h-9 px-3 rounded-xl text-[12px] font-semibold transition-all duration-150 shadow-sm bg-red-500 text-white hover:scale-[1.02]"
             >
               <RotateCcw size={12} />
               Reset
@@ -611,7 +600,7 @@ useEffect(() => {
 
             <button
               onClick={exportImage}
-              className="flex items-center gap-1 px-2 py-1 rounded-lg border border-zinc-900 bg-white text-zinc-900 text-[11px]"
+              className="flex items-center justify-center gap-1 h-9 px-3 rounded-xl text-[12px] font-semibold transition-all duration-150 shadow-sm border border-zinc-300 bg-white text-zinc-900 hover:bg-zinc-50 hover:scale-[1.02]"
             >
               <Download size={12} />
               PNG
@@ -619,17 +608,19 @@ useEffect(() => {
           </div>
         </div>
 
-        <div className="border-t border-zinc-300" />
-
-        {/* TABLE */}
-
         <div
           ref={exportRef}
-          className={`space-y-4 ${
-            isExporting
-              ? "w-[1200px]"
-              : "overflow-hidden"
-          }`}
+          className={`
+            space-y-4
+            rounded-3xl
+            border
+            border-zinc-200
+            bg-white/70
+            backdrop-blur-sm
+            p-4
+            shadow-sm
+            ${isExporting ? "w-[1200px]" : "overflow-hidden"}
+          `}
         >
 
           {!isTrainTab && (
@@ -647,11 +638,21 @@ useEffect(() => {
                         : label
                     )
                   }
-                  className={`${color} px-2 py-1 rounded-lg text-[11px] border transition ${
-                    activeLegend === label
-                      ? "border-zinc-900 scale-105"
-                      : "border-transparent"
-                  }`}
+                  className={`${color}
+                    h-9
+                    px-3
+                    rounded-xl
+                    text-[11px]
+                    font-bold
+                    border
+                    transition-all
+                    duration-150
+                    shadow-sm
+                    ${activeLegend === label
+                      ? "border-zinc-900 scale-[1.03] shadow-md"
+                      : "border-transparent hover:scale-[1.02]"
+                    }
+                  `}
                 >
                   {label}
                 </button>
@@ -659,16 +660,15 @@ useEffect(() => {
             </div>
           )}
 
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto rounded-2xl">
 
-            <table className="border-collapse min-w-[560px] w-full text-sm">
+            <table className="border-separate border-spacing-0 min-w-[620px] w-full text-sm overflow-hidden rounded-2xl">
 
               <thead>
-
                 <tr>
 
                   <th
-                    className={`sticky left-0 z-20 bg-zinc-200 border border-zinc-300 p-2 text-left text-xs font-bold ${
+                    className={`sticky left-0 z-20 bg-zinc-100 border border-zinc-200 p-2 text-left text-xs font-bold uppercase tracking-wide ${
                       isTrainTab
                         ? "min-w-[85px]"
                         : "min-w-[125px]"
@@ -679,20 +679,20 @@ useEffect(() => {
                       : "ROLE"}
                   </th>
 
-                  <th className="border border-zinc-300 p-2 bg-zinc-200 min-w-[120px] text-xs font-bold">
+                  <th className="border border-zinc-200 p-2 bg-zinc-100 min-w-[120px] text-xs font-bold uppercase tracking-wide">
                     {isTrainTab
                       ? "PILOT"
                       : "PLAYER 1"}
                   </th>
 
-                  <th className="border border-zinc-300 p-2 bg-zinc-200 min-w-[120px] text-xs font-bold">
+                  <th className="border border-zinc-200 p-2 bg-zinc-100 min-w-[120px] text-xs font-bold uppercase tracking-wide">
                     {isTrainTab
                       ? "VIP"
                       : "PLAYER 2"}
                   </th>
 
                   {!isTrainTab && (
-                    <th className="border border-zinc-300 p-2 bg-zinc-200 min-w-[120px] text-xs font-bold">
+                    <th className="border border-zinc-200 p-2 bg-zinc-100 min-w-[120px] text-xs font-bold uppercase tracking-wide">
                       PLAYER 3
                     </th>
                   )}
@@ -700,13 +700,12 @@ useEffect(() => {
               </thead>
 
               <tbody>
-
                 {currentRoles.map(
                   (role, rowIndex) => (
                     <tr key={role}>
 
                       <td
-                        className={`sticky left-0 z-10 bg-zinc-200 border border-zinc-300 px-2 py-2 whitespace-nowrap text-xs font-bold ${
+                        className={`sticky left-0 z-10 bg-zinc-50 border border-zinc-200 px-2 py-2 whitespace-nowrap text-xs font-bold ${
                           isTrainTab
                             ? "w-[85px]"
                             : ""
@@ -738,10 +737,10 @@ useEffect(() => {
                                 key
                               )
                             }
-                            className={`border border-zinc-300 p-1 transition ${
+                            className={`border border-zinc-200 p-1 transition-all duration-150 ${
                               activeLegend
                                 ? "cursor-pointer"
-                                : ""
+                                : "hover:bg-white/40"
                             } ${
                               color
                                 ? LEGENDS[
@@ -773,11 +772,22 @@ useEffect(() => {
                                     .value
                                 )
                               }
-                              className={`w-full bg-transparent px-2 py-1 rounded-md text-xs outline-none ${
-                                activeLegend
+                              className={`
+                                w-full
+                                bg-transparent
+                                px-2
+                                h-9
+                                rounded-lg
+                                text-[12px]
+                                font-medium
+                                outline-none
+                                transition-all
+                                duration-150
+                                ${activeLegend
                                   ? "appearance-none pointer-events-none"
-                                  : ""
-                              }`}
+                                  : "hover:bg-white/50"
+                                }
+                              `}
                             >
 
                               <option value="">
@@ -830,9 +840,9 @@ useEffect(() => {
           </div>
 
           {!isTrainTab && (
-            <div className="space-y-3">
+            <div className="space-y-3 border-t border-zinc-200 pt-4">
 
-              <h3 className="text-sm font-medium text-zinc-500">
+              <h3 className="text-sm font-semibold text-zinc-500 tracking-wide">
                 SUBS
               </h3>
 
@@ -855,17 +865,22 @@ useEffect(() => {
                             `sub-${index}`
                           )
                         }
-                        className={`border border-zinc-300 rounded-lg p-1 transition ${
-                          activeLegend
-                            ? "cursor-pointer"
-                            : ""
-                        } ${
-                          color
+                        className={`
+                          border
+                          border-zinc-200
+                          rounded-xl
+                          p-1
+                          transition-all
+                          duration-150
+                          shadow-sm
+                          ${activeLegend ? "cursor-pointer" : ""}
+                          ${color
                             ? LEGENDS[
                                 color as keyof typeof LEGENDS
                               ]
-                            : "bg-white"
-                        }`}
+                            : "bg-white hover:bg-zinc-50"
+                          }
+                        `}
                       >
 
                         <select
@@ -880,11 +895,22 @@ useEffect(() => {
                                 .value
                             )
                           }
-                          className={`w-full bg-transparent px-2 py-1 rounded-md text-xs outline-none ${
-                            activeLegend
+                          className={`
+                            w-full
+                            bg-transparent
+                            px-2
+                            h-9
+                            rounded-lg
+                            text-[12px]
+                            font-medium
+                            outline-none
+                            transition-all
+                            duration-150
+                            ${activeLegend
                               ? "appearance-none pointer-events-none"
-                              : ""
-                          }`}
+                              : "hover:bg-white/50"
+                            }
+                          `}
                         >
 
                           <option value="">
@@ -916,3 +942,4 @@ useEffect(() => {
     </div>
   )
 }
+
