@@ -420,75 +420,83 @@ export default function Page() {
       </div>
     </div>
 
-    {/* DESKTOP NAV */}
-    <div className="absolute left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center">
+{/* DESKTOP NAV */}
+<div className="absolute left-1/2 -translate-x-1/2 hidden md:flex items-center gap-3">
 
-      <div className="flex items-center gap-3 bg-[#E8E8E8] rounded-full px-3 py-2">
+  {/* TEAM A */}
+  <div className="flex flex-col items-center w-[110px]">
+    <button
+      onClick={() => setActiveTab("A")}
+      className={`w-full h-11 rounded-full text-[13px] font-semibold transition ${
+        activeTab === "A"
+          ? "bg-black text-white"
+          : "bg-white text-zinc-700 border border-zinc-200"
+      }`}
+    >
+      TEAM A
+    </button>
 
-        {/* TEAM A */}
-        <div className="flex flex-col items-center">
-          <button
-            onClick={() => setActiveTab("A")}
-            className={`h-11 px-7 rounded-full text-[13px] font-semibold transition ${
-              activeTab === "A"
-                ? "bg-black text-white"
-                : "bg-white text-zinc-700"
-            }`}
-          >
-            TEAM A
-          </button>
+    <span
+      className={`text-[11px] mt-2 transition ${
+        activeTab === "A"
+          ? "text-zinc-500 opacity-100"
+          : "opacity-0"
+      }`}
+    >
+      13H FRANCE
+    </span>
+  </div>
 
-          {activeTab === "A" && (
-            <span className="text-[11px] text-zinc-500 mt-2">
-              13H FRANCE
-            </span>
-          )}
-        </div>
+  {/* TEAM B */}
+  <div className="flex flex-col items-center w-[110px]">
+    <button
+      onClick={() => setActiveTab("B")}
+      className={`w-full h-11 rounded-full text-[13px] font-semibold transition ${
+        activeTab === "B"
+          ? "bg-black text-white"
+          : "bg-white text-zinc-700 border border-zinc-200"
+      }`}
+    >
+      TEAM B
+    </button>
 
-        {/* TEAM B */}
-        <div className="flex flex-col items-center">
-          <button
-            onClick={() => setActiveTab("B")}
-            className={`h-11 px-7 rounded-full text-[13px] font-semibold transition ${
-              activeTab === "B"
-                ? "bg-black text-white"
-                : "bg-white text-zinc-700"
-            }`}
-          >
-            TEAM B
-          </button>
+    <span
+      className={`text-[11px] mt-2 transition ${
+        activeTab === "B"
+          ? "text-zinc-500 opacity-100"
+          : "opacity-0"
+      }`}
+    >
+      22H FRANCE
+    </span>
+  </div>
 
-          {activeTab === "B" && (
-            <span className="text-[11px] text-zinc-500 mt-2">
-              22H FRANCE
-            </span>
-          )}
-        </div>
+  <div className="w-px h-6 bg-zinc-300" />
 
-        {/* separator */}
-        <div className="w-px h-6 bg-zinc-300" />
+  {/* TRAINS */}
+  <div className="flex flex-col items-center w-[110px]">
+    <button
+      onClick={() => setActiveTab("C")}
+      className={`w-full h-11 rounded-full text-[13px] font-semibold transition ${
+        activeTab === "C"
+          ? "bg-black text-white"
+          : "bg-white text-zinc-700 border border-zinc-200"
+      }`}
+    >
+      TRAINS
+    </button>
 
-        {/* TRAINS */}
-        <div className="flex flex-col items-center">
-          <button
-            onClick={() => setActiveTab("C")}
-            className={`h-11 px-7 rounded-full text-[13px] font-semibold transition ${
-              activeTab === "C"
-                ? "bg-black text-white"
-                : "bg-white text-zinc-700"
-            }`}
-          >
-            TRAINS
-          </button>
-
-          {activeTab === "C" && (
-            <span className="text-[11px] text-zinc-500 mt-2">
-              TRAIN SCHEDULE
-            </span>
-          )}
-        </div>
-      </div>
-    </div>
+    <span
+      className={`text-[11px] mt-2 transition ${
+        activeTab === "C"
+          ? "text-zinc-500 opacity-100"
+          : "opacity-0"
+      }`}
+    >
+      TRAIN SCHEDULE
+    </span>
+  </div>
+</div>
   </div>
 
   {/* MOBILE NAV */}
