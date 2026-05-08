@@ -396,62 +396,151 @@ export default function Page() {
     <div className="min-h-screen bg-[#f4f5f7] text-zinc-800 p-3 md:p-5">
       <div className="max-w-7xl mx-auto space-y-5">
 
-        <div className="flex items-start justify-between px-4 py-4">
+<div className="w-full py-2">
 
-          <div>
-            <h1 className="text-[30px] font-black tracking-tight text-zinc-900">
-              DOOM #1515
-            </h1>
+  <div className="relative flex items-start justify-between">
 
-            <p className="text-[12px] text-zinc-500 mt-1 font-medium">
-              Alliance Tactical Planner
-            </p>
-          </div>
+    {/* LEFT */}
+    <div className="flex items-center gap-3 shrink-0">
 
-          <div className="flex flex-col items-end gap-2">
+      <div className="w-12 h-12 rounded-2xl bg-black flex items-center justify-center">
+        <span className="text-[#7CFF5B] text-2xl">
+          ☣
+        </span>
+      </div>
 
-            <div className="flex gap-2">
+      <div>
+        <h1 className="text-[30px] font-black tracking-tight text-zinc-900 leading-none">
+          DOOM #1515
+        </h1>
 
-              {[
-                ["A", "TEAM A"],
-                ["B", "TEAM B"],
-                ["C", "TRAINS"],
-              ].map(([key, label]) => (
-                <button
-                  key={key}
-                  onClick={() =>
-                    setActiveTab(key as any)
-                  }
-                  className={`
-                    h-9
-                    px-3
-                    rounded-xl
-                    text-[12px]
-                    font-bold
-                    transition-all
-                    duration-150
-                    border
-                    whitespace-nowrap
-                    ${activeTab === key
-                      ? "bg-zinc-900 text-white border-zinc-900 scale-[1.02]"
-                      : "bg-white text-zinc-700 border-zinc-200 hover:border-zinc-300 hover:bg-zinc-50"
-                    }
-                  `}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
+        <p className="text-[12px] text-zinc-500 mt-1 font-medium">
+          Alliance Tactical Planner
+        </p>
+      </div>
+    </div>
 
-            <div className="text-[11px] text-zinc-500 font-medium pr-1">
-              {activeTab === "A"
-                ? "13H FRANCE"
-                : activeTab === "B"
-                ? "22H FRANCE"
-                : "TRAIN SCHEDULE"}
-            </div>
-          </div>
+    {/* DESKTOP NAV */}
+    <div className="absolute left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center">
+
+      <div className="flex items-center gap-3 bg-[#E8E8E8] rounded-full px-3 py-2">
+
+        {/* TEAM A */}
+        <div className="flex flex-col items-center">
+          <button
+            onClick={() => setActiveTab("A")}
+            className={`h-11 px-7 rounded-full text-[13px] font-semibold transition ${
+              activeTab === "A"
+                ? "bg-black text-white"
+                : "bg-white text-zinc-700"
+            }`}
+          >
+            TEAM A
+          </button>
+
+          {activeTab === "A" && (
+            <span className="text-[11px] text-zinc-500 mt-2">
+              13H FRANCE
+            </span>
+          )}
         </div>
+
+        {/* TEAM B */}
+        <div className="flex flex-col items-center">
+          <button
+            onClick={() => setActiveTab("B")}
+            className={`h-11 px-7 rounded-full text-[13px] font-semibold transition ${
+              activeTab === "B"
+                ? "bg-black text-white"
+                : "bg-white text-zinc-700"
+            }`}
+          >
+            TEAM B
+          </button>
+
+          {activeTab === "B" && (
+            <span className="text-[11px] text-zinc-500 mt-2">
+              22H FRANCE
+            </span>
+          )}
+        </div>
+
+        {/* separator */}
+        <div className="w-px h-6 bg-zinc-300" />
+
+        {/* TRAINS */}
+        <div className="flex flex-col items-center">
+          <button
+            onClick={() => setActiveTab("C")}
+            className={`h-11 px-7 rounded-full text-[13px] font-semibold transition ${
+              activeTab === "C"
+                ? "bg-black text-white"
+                : "bg-white text-zinc-700"
+            }`}
+          >
+            TRAINS
+          </button>
+
+          {activeTab === "C" && (
+            <span className="text-[11px] text-zinc-500 mt-2">
+              TRAIN SCHEDULE
+            </span>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {/* MOBILE NAV */}
+  <div className="md:hidden mt-5">
+
+    <div className="flex items-center gap-2 bg-[#E8E8E8] rounded-full p-2">
+
+      <button
+        onClick={() => setActiveTab("A")}
+        className={`flex-1 h-11 rounded-full text-[12px] font-semibold transition ${
+          activeTab === "A"
+            ? "bg-black text-white"
+            : "bg-white text-zinc-700"
+        }`}
+      >
+        TEAM A
+      </button>
+
+      <button
+        onClick={() => setActiveTab("B")}
+        className={`flex-1 h-11 rounded-full text-[12px] font-semibold transition ${
+          activeTab === "B"
+            ? "bg-black text-white"
+            : "bg-white text-zinc-700"
+        }`}
+      >
+        TEAM B
+      </button>
+
+      <button
+        onClick={() => setActiveTab("C")}
+        className={`flex-1 h-11 rounded-full text-[12px] font-semibold transition ${
+          activeTab === "C"
+            ? "bg-black text-white"
+            : "bg-white text-zinc-700"
+        }`}
+      >
+        TRAINS
+      </button>
+    </div>
+
+    <div className="flex justify-center mt-2">
+      <span className="text-[11px] text-zinc-500">
+        {activeTab === "A"
+          ? "13H FRANCE"
+          : activeTab === "B"
+          ? "22H FRANCE"
+          : "TRAIN SCHEDULE"}
+      </span>
+    </div>
+  </div>
+</div>
 
         <div className="space-y-4 p-4">
 
