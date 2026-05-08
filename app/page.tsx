@@ -463,7 +463,7 @@ export default function Page() {
 
         <div className="space-y-4 p-4">
 
-          <div className="flex flex-wrap gap-2">
+          <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-7 xl:grid-cols-8 gap-2">
 
             {sortedPlayers.map((player) => {
               const state =
@@ -481,10 +481,11 @@ export default function Page() {
                       cyclePlayer(player)
                     }
                     className={`
-                      px-3
-                      h-9
-                      rounded-xl
-                      text-[13px]
+                      w-full
+                      h-8
+                      justify-center
+                      rounded-2xl
+                      text-[11px]
                       font-medium
                       transition-all
                       duration-150
