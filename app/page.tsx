@@ -769,8 +769,8 @@ export default function Page() {
                                 px-2
                                 h-9
                                 rounded-lg
-                                text-[12px]
-                                font-medium
+                                text-[14px]
+                                font-bold
                                 outline-none
                                 transition-all
                                 duration-150
@@ -891,8 +891,8 @@ export default function Page() {
                             px-2
                             h-9
                             rounded-lg
-                            text-[12px]
-                            font-medium
+                            text-[14px]
+                            font-bold
                             outline-none
                             transition-all
                             duration-150
