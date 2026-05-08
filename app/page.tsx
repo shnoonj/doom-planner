@@ -1,4 +1,7 @@
+
 "use client"
+
+import { supabase } from "../lib/supabase"
 
 import { useEffect, useMemo, useRef, useState } from "react"
 import {
@@ -158,28 +161,49 @@ export default function Page() {
     return `${day}/${month}`
   }, [])
 
-  useEffect(() => {
-    const saved = localStorage.getItem(
-      "doom-planner-v13"
-    )
+  
+const hasLoaded = useRef(false)
 
-    if (saved) {
-      const parsed = JSON.parse(saved)
+useEffect(() => {
+  async function loadData() {
+    const { data } = await supabase
+      .from("doom_state")
+      .select("data")
+      .eq("id", 1)
+      .single()
 
-      setPlayers(parsed.players)
-      setTeams(parsed.teams)
+    if (data?.data) {
+      if (data.data.players)
+        setPlayers(data.data.players)
+
+      if (data.data.teams)
+        setTeams(data.data.teams)
     }
-  }, [])
 
-  useEffect(() => {
-    localStorage.setItem(
-      "doom-planner-v13",
-      JSON.stringify({
-        players,
-        teams,
+    hasLoaded.current = true
+  }
+
+  loadData()
+}, [])
+
+useEffect(() => {
+  if (!hasLoaded.current) return
+
+  async function saveData() {
+    await supabase
+      .from("doom_state")
+      .update({
+        data: {
+          players,
+          teams,
+        },
       })
-    )
-  }, [players, teams])
+      .eq("id", 1)
+  }
+
+  saveData()
+}, [players, teams])
+  
 
   const sortedPlayers = useMemo(() => {
     return [...players].sort((a, b) =>
