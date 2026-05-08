@@ -502,14 +502,14 @@ export default function Page() {
   {/* MOBILE NAV */}
   <div className="md:hidden mt-5">
 
-    <div className="flex items-center gap-2 bg-[#E8E8E8] rounded-full p-2">
+    <div className="flex items-center gap-2">
 
       <button
         onClick={() => setActiveTab("A")}
         className={`flex-1 h-11 rounded-full text-[12px] font-semibold transition ${
           activeTab === "A"
             ? "bg-black text-white"
-            : "bg-white text-zinc-700"
+            : "bg-white text-zinc-700 border border-zinc-200"
         }`}
       >
         TEAM A
@@ -520,7 +520,7 @@ export default function Page() {
         className={`flex-1 h-11 rounded-full text-[12px] font-semibold transition ${
           activeTab === "B"
             ? "bg-black text-white"
-            : "bg-white text-zinc-700"
+            : "bg-white text-zinc-700 border border-zinc-200"
         }`}
       >
         TEAM B
@@ -531,7 +531,7 @@ export default function Page() {
         className={`flex-1 h-11 rounded-full text-[12px] font-semibold transition ${
           activeTab === "C"
             ? "bg-black text-white"
-            : "bg-white text-zinc-700"
+            : "bg-white text-zinc-700 border border-zinc-200"
         }`}
       >
         TRAINS
@@ -573,7 +573,7 @@ export default function Page() {
                       w-full
                       h-8
                       justify-center
-                      rounded-2xl
+                      rounded-lg
                       text-[11px]
                       font-medium
                       transition-all
