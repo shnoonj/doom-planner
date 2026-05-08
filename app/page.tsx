@@ -251,21 +251,13 @@ export default function Page() {
     let next = "green"
 
     if (current === "green") {
-      if (
-        pinkCount >=
-        (isTrainTab ? 100 : 10)
-      )
-        return
+
 
       next = "pink"
     } else if (current === "pink") {
       next = "none"
     } else {
-      if (
-        greenCount >=
-        (isTrainTab ? 100 : 20)
-      )
-        return
+
 
       next = "green"
     }
